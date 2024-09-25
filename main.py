@@ -44,3 +44,11 @@ def generate_jwt(name: dict):
     access_token = create_access_token(name)
     return {"access_token": access_token, "token_type": "bearer"}
 
+@app.get("/fonction")
+def petite_fonction():
+    data_dict=get_data_gouv()
+    if 'data' in data_dict:
+        ecv_values = [float(item['ecv']) for item in data_dict['data']]
+        return sum(ecv_values) / len(ecv_values)
+    else:
+        return []  
