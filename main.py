@@ -1,5 +1,6 @@
 from fastapi import FastAPI 
 import requests
+import jwt
 from datetime import datetime
 
 app = FastAPI()
@@ -31,4 +32,15 @@ def get_data_gouv():
     except requests.exceptions.RequestException as e:
         # Gérer les erreurs
         return {"error": "Failed to retrieve data", "details": str(e)}
+    
+def create_access_token(input: dict) -> str :
+    to_encode = input.copy()
+    encoded_jwt = jwt.encode(to_encode, 'SECRET_KEY', )
+    return encoded_jwt
+
+# Endpoint pour générer le JWT
+@app.post("/token")
+def generate_jwt(name: dict):
+    access_token = create_access_token(name)
+    return {"access_token": access_token, "token_type": "bearer"}
 
