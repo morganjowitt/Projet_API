@@ -44,6 +44,8 @@ def generate_jwt(name: dict):
     access_token = create_access_token(name)
     return {"access_token": access_token, "token_type": "bearer"}
 
+# RESTE A CREER UNE FONCTION QUI UTILISE LE TOKEN avec jwt.decode
+
 @app.get("/fonction")
 def petite_fonction():
     data_dict=get_data_gouv()
